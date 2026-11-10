@@ -1,0 +1,33 @@
+{
+  "name": "@pipeworx/mcp-federal-rules",
+  "version": "0.1.0",
+  "description": "Federal Rules pack -- the text of the federal court rules, read live per request from the Legal Information Institute (Cornell Law School), which publishes the Administrative Office of the U.S. Courts' rules sets.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./tools.json": "./tools.json",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "mcp-federal-rules": "bin/cli.js"
+  },
+  "files": ["bin/", "lib/", "tools.json", "server.json"],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "federal-rules"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pipeworx-io/mcp-federal-rules.git"
+  },
+  "mcpName": "io.github.pipeworx-io/federal-rules",
+  "pipeworx": {
+    "mode": "gateway",
+    "slug": "federal-rules",
+    "gatewaySlug": "federal-rules",
+    "sourceHash": "v1-1ccd64103bb12293d54f072878e2f280e618cdb98ff1f52f73fc426e46148a40",
+    "sourceCommit": "ac4ecd7f0cd0af9ede3d29b075cdb2278008c431"
+  }
+}

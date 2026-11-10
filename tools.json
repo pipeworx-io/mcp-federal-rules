@@ -1,0 +1,71 @@
+[
+  {
+    "name": "get_federal_rule",
+    "description": "Get the full text of a federal court rule, optionally one subdivision. Covers the Federal Rules of Civil Procedure (FRCP, e.g. \"Rule 64 seizing a person or property\", \"Rule 12(b)(6)\", \"Rule 56\"), Evidence (FRE, e.g. \"803(6) business records hearsay exception\"), Appellate Procedure (FRAP, e.g. \"Rule 4 time to appeal\"), Criminal Procedure (FRCrP) and Bankruptcy Procedure (FRBP). Pass the citation pieces: set=\"frcp\", rule=\"64\", subdivision=\"(b)\" -- or rule=\"64(b)\" / \"4(a)(1)(B)\". Returns the requested subdivision text (when given), the whole rule text, the amendment/effective credit line, whether Advisory Committee notes exist (include_notes=true returns them), and a source link. An unknown rule number or subdivision returns an explicit not-found.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "set": {
+          "type": "string",
+          "description": "Rule set: frcp (Civil Procedure), fre (Evidence), frap (Appellate), frcrp (Criminal Procedure), frbp (Bankruptcy). Aliases such as frcrmp and \"civil\" are accepted."
+        },
+        "rule": {
+          "type": "string",
+          "description": "Rule number, optionally with subdivisions: \"64\", \"4.1\", \"803(6)\", \"12(b)(6)\". A leading \"Rule\" is ignored."
+        },
+        "subdivision": {
+          "type": "string",
+          "description": "Optional subdivision path, e.g. \"(b)\" or \"(a)(1)(B)\". Appended to any subdivision already in rule."
+        },
+        "include_notes": {
+          "type": "boolean",
+          "description": "Include Advisory Committee notes / committee notes text (truncated at 12,000 characters). Default false."
+        }
+      },
+      "required": [
+        "set",
+        "rule"
+      ]
+    }
+  },
+  {
+    "name": "list_federal_rules",
+    "description": "List every rule in a federal court rules set with its number and title: FRCP (civil procedure), FRE (evidence), FRAP (appellate), FRCrP (criminal procedure) or FRBP (bankruptcy). Also returns the \"as amended to\" date the publisher states for the set. Use to find the rule number before get_federal_rule.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "set": {
+          "type": "string",
+          "description": "Rule set: frcp (Civil Procedure), fre (Evidence), frap (Appellate), frcrp (Criminal Procedure), frbp (Bankruptcy). Aliases such as frcrmp and \"civil\" are accepted."
+        }
+      },
+      "required": [
+        "set"
+      ]
+    }
+  },
+  {
+    "name": "search_federal_rules",
+    "description": "Find federal court rules by words in their title, e.g. \"summary judgment\" (FRCP 56), \"hearsay\" (FRE 801-807), \"notice of appeal\" (FRAP), \"discovery\". Matches rule titles and numbers only, not the full rule text. Searches one set, or all five when set is omitted. Returns rule numbers and titles; call get_federal_rule for the text.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Words from the rule title, e.g. \"seizing property\", \"business records\"."
+        },
+        "set": {
+          "type": "string",
+          "description": "Rule set: frcp (Civil Procedure), fre (Evidence), frap (Appellate), frcrp (Criminal Procedure), frbp (Bankruptcy). Aliases such as frcrmp and \"civil\" are accepted. Omit to search all sets."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max results (default 20, max 50)."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  }
+]
